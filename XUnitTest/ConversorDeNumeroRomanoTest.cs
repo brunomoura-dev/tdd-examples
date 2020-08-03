@@ -18,6 +18,14 @@ namespace XUnitTest
             Assert.Equal(1, numero);
         }
 
+        [Fact]
+        public void DeveEntenderOSimboloV()
+        {
 
+            ConversorDeNumeroRomano romano = new ConversorDeNumeroRomano();
+            int numero = romano.Converte("V");
+
+            Assert.Equal(5, numero);
+        }
     }
 }
