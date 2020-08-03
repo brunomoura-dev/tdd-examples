@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace tdd_book
 {
@@ -17,12 +18,7 @@ namespace tdd_book
 
         public int Converte(string numeroEmRomano)
         {
-            int acumalador = 0;
-            for (int i = 0; i < numeroEmRomano.Length; i++)
-            {
-                acumalador += Tabela[numeroEmRomano[i].ToString()];
-            }
-            return acumalador;
+            return numeroEmRomano.Sum(t => Tabela[t.ToString()]);
         }
     }
 }
