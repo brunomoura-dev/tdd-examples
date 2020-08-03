@@ -17,7 +17,12 @@ namespace tdd_book
 
         public int Converte(string numeroEmRomano)
         {
-            return Tabela[numeroEmRomano];
+            int acumalador = 0;
+            for (int i = 0; i < numeroEmRomano.Length; i++)
+            {
+                acumalador += Tabela[numeroEmRomano[i].ToString()];
+            }
+            return acumalador;
         }
     }
 }
