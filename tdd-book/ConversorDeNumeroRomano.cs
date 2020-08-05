@@ -18,7 +18,19 @@ namespace tdd_book
 
         public int Converte(string numeroEmRomano)
         {
-            return numeroEmRomano.Sum(t => Tabela[t.ToString()]);
+            var acumulador = 0;
+            var ultimoVizinhoDaDireita = 0;
+
+            for (var i = numeroEmRomano.Length - 1; i >= 0 ; i--)
+            {
+                var atual = Tabela[numeroEmRomano[i].ToString()];
+                var multiplicador = 1;
+                if (atual < ultimoVizinhoDaDireita) multiplicador = -1;
+                acumulador += atual * multiplicador;
+                ultimoVizinhoDaDireita = atual;
+            }
+
+            return acumulador;
         }
     }
 }

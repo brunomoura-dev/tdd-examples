@@ -37,5 +37,32 @@ namespace XUnitTest
 
             Assert.Equal(2, numero);
         }
+
+        [Fact]
+        public void DeveEntenderQuatroSimbolosDoisADoisComoXXII()
+        {
+            ConversorDeNumeroRomano romano = new ConversorDeNumeroRomano();
+            int numero = romano.Converte("XXII");
+
+            Assert.Equal(22, numero);
+        }
+
+        [Fact]
+        public void DeveEntenderNumerosComoIX()
+        {
+            ConversorDeNumeroRomano romano = new ConversorDeNumeroRomano();
+            int numero = romano.Converte("IX");
+
+            Assert.Equal(9, numero);
+        }
+
+        [Fact]
+        public void DeveEntenderNumerosComplexosComoXXIV()
+        {
+            ConversorDeNumeroRomano romano = new ConversorDeNumeroRomano();
+            int numero = romano.Converte("XXIV");
+
+            Assert.Equal(24, numero);
+        }
     }
 }
