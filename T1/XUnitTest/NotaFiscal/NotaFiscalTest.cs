@@ -10,29 +10,49 @@ namespace XUnitTest.NotaFiscal
 {
     public class NotaFiscalTest
     {
+        public GeradorDeNotaFiscal Gerador { get; set; }
+        public Mock<NFDao> Dao = new Mock<NFDao>();
+        public Mock<SAP> Sap = new Mock<SAP>();
+
+        public NotaFiscalTest()
+        {
+            Gerador = new GeradorDeNotaFiscal(Dao.Object, Sap.Object);
+        }
+
         [Fact]
-        public void DeveGerarNFComValorDeImpostoDescontado()
+        public void DeveGerarNfComValorDeImpostoDescontado()
         {
             var dao = new Mock<NFDao>();
-            GeradorDeNotaFiscal gerador = new GeradorDeNotaFiscal(dao.Object);
             var pedido = new Pedido("Bruno", 1000, 1);
-            tdd_book.NotaFiscal.NotaFiscal nf = gerador.Gera(pedido);
+            tdd_book.NotaFiscal.NotaFiscal nf = Gerador.Gera(pedido);
 
             Assert.Equal(1000 * 0.94, nf.Valor, 4);
         }
 
         [Fact]
-
-        public void DevePersistirNFGerada()
+        public void DevePersistirNfGerada()
         {
             var dao = new Mock<NFDao>();
             
-            var gerador = new GeradorDeNotaFiscal(dao.Object);
             var pedido = new Pedido("Bruno", 1000, 1);
-            var nf = gerador.Gera(pedido);
+            var nf = Gerador.Gera(pedido);
             dao.Object.Persiste(nf);
 
             dao.Verify(t => t.Persiste(nf), Times.AtLeastOnce);
+        }
+
+        [Fact]
+        public void DeveEnviarNfGeradaParaSap()
+        {
+            var dao = new Mock<NFDao>();
+            var sap = new Mock<SAP>();
+
+            var pedido = new Pedido("Bruno", 1000, 1);
+            var nf = Gerador.Gera(pedido);
+
+            sap.Object.Envia(nf);
+            sap.Verify(t => t.Envia(nf));
+
         }
     }
 }
