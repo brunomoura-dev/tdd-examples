@@ -7,8 +7,11 @@ namespace tdd_book
     {
         public NotaFiscal.NotaFiscal Gera(Pedido pedido)
         {
-            return new NotaFiscal.NotaFiscal(pedido.Cliente, pedido.ValorTotal * 0.94, 
+            var nf = new NotaFiscal.NotaFiscal(pedido.Cliente, pedido.ValorTotal * 0.94, 
                 DateTime.Now);
+            new NFDao().Persiste(nf);
+
+            return nf;
         }
     }
 }
